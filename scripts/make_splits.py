@@ -10,7 +10,7 @@ OUT = Path("splits")
 OUT.mkdir(exist_ok=True)
 SEED = 42
 
-df = pd.DataFrame({"path": sorted(str(p) for p in ROOT.rglob("*.jpg"))})
+df = pd.DataFrame({"path": sorted(str(p) for p in ROOT.rglob("*") if p.suffix.lower() == ".jpg")})
 df["clase"] = df["path"].map(lambda p: Path(p).parent.name)
 assert len(df) == 3076, f"Esperaba 3076 imágenes y hay {len(df)}. Corre ./scripts/download_data.sh"
 
