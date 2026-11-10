@@ -8,7 +8,7 @@ Lista para revisar a mano: reports/casi_duplicados_potato.csv
 ## Por clase (medianas de tamaño y peso; medias de brillo y verdor)
 ```
                n  ancho_med  alto_med  kb_med  brillo  verde   pct
-clase                                                             
+clase
 Bacteria     569     1500.0    1500.0   201.6   124.3   21.1  18.5
 Fungi        748     1500.0    1500.0   236.4   116.7   26.2  24.3
 Healthy      201     1500.0    1500.0   268.5   120.2   30.4   6.5
