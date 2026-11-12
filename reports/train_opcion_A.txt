@@ -1,0 +1,26 @@
+Opción A | epochs entrenadas: 15
+Macro-F1: 0.640 | Balanced accuracy: 0.721
+
+              precision    recall  f1-score   support
+
+    Bacteria      0.973     0.835     0.899        85
+       Fungi      0.746     0.400     0.521       110
+     Healthy      0.545     0.800     0.649        30
+    Nematode      0.417     1.000     0.588        10
+        Pest      0.435     0.522     0.475        90
+ Phytopthora      0.535     0.826     0.650        46
+       Virus      0.736     0.662     0.697        80
+
+    accuracy                          0.636       451
+   macro avg      0.627     0.721     0.640       451
+weighted avg      0.683     0.636     0.637       451
+
+Matriz de confusión (filas = real, columnas = predicho)
+Orden: ['Bacteria', 'Fungi', 'Healthy', 'Nematode', 'Pest', 'Phytopthora', 'Virus']
+[[71  1  1  1  5  2  4]
+ [ 0 44  5  4 38 12  7]
+ [ 0  2 24  0  4  0  0]
+ [ 0  0  0 10  0  0  0]
+ [ 1  8  7  5 47 14  8]
+ [ 1  4  0  2  1 38  0]
+ [ 0  0  7  2 13  5 53]]

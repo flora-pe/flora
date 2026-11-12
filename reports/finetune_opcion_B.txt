@@ -1,0 +1,26 @@
+Fine-tuning opción B | unfreeze 40 | lr 1e-05 | epochs entrenadas: 15
+Macro-F1: 0.723 | Balanced accuracy: 0.757
+
+              precision    recall  f1-score   support
+
+    Bacteria      0.974     0.871     0.919        85
+       Fungi      0.727     0.655     0.689       110
+     Healthy      0.675     0.900     0.771        30
+    Nematode      0.615     0.800     0.696        10
+        Pest      0.527     0.544     0.536        90
+ Phytopthora      0.597     0.870     0.708        46
+       Virus      0.841     0.662     0.741        80
+
+    accuracy                          0.716       451
+   macro avg      0.708     0.757     0.723       451
+weighted avg      0.735     0.716     0.719       451
+
+Matriz de confusión (filas = real, columnas = predicho)
+Orden: ['Bacteria', 'Fungi', 'Healthy', 'Nematode', 'Pest', 'Phytopthora', 'Virus']
+[[74  1  1  0  5  1  3]
+ [ 1 72  2  2 21 10  2]
+ [ 0  1 27  0  2  0  0]
+ [ 0  1  0  8  0  1  0]
+ [ 1 15  6  2 49 12  5]
+ [ 0  4  0  1  1 40  0]
+ [ 0  5  4  0 15  3 53]]
