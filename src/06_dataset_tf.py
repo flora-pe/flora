@@ -7,7 +7,7 @@ from sklearn.utils.class_weight import compute_class_weight
 # ---------- Configuración ----------
 IMG_SIZE, BATCH, SEED = 224, 32, 42
 AUTOTUNE = tf.data.AUTOTUNE
-CSV_PATH = "splits/potato_splits.csv"
+CSV_PATH = "splits/potato_splits_256.csv"
 
 # ---------- 1. Cargar CSV de splits ----------
 df = pd.read_csv(CSV_PATH)  # columnas: path, clase, split
