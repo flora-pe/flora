@@ -1,0 +1,40 @@
+{
+  "brand": {
+    "name": "FLORA",
+    "tagline": "Inteligencia para el campo"
+  },
+  "colors": {
+    "forestDeep": "#123E30",
+    "floraGreen": "#1E6848",
+    "mossSoft": "#6F8F7B",
+    "mistBackground": "#F4F7F1",
+    "surfaceLight": "#FBFCF8",
+    "textDark": "#173C31",
+    "scanMint": "#A6E3C0",
+    "holoCyan": "#9FD8D0",
+    "signalLime": "#B7D77A",
+    "success": "#2E7D57",
+    "warning": "#D6A94B",
+    "danger": "#B86A4F",
+    "info": "#7DA8C1"
+  },
+  "typography": {
+    "heading": "Outfit",
+    "body": "DM Sans"
+  },
+  "radius": {
+    "sm": "10px",
+    "md": "16px",
+    "lg": "22px",
+    "xl": "28px"
+  },
+  "shadow": {
+    "soft": "0 8px 30px rgba(18,62,48,0.08)",
+    "card": "0 12px 32px rgba(18,62,48,0.10)"
+  },
+  "motion": {
+    "style": "smooth-precise-organic",
+    "heroRotation": "slow",
+    "analysisFeedback": "reactive"
+  }
+}
