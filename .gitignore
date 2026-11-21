@@ -1,2 +1,12 @@
+.DS_Store
+**/.DS_Store
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+.venv/
 raw_data/
 data/
+models/
+artifacts/*.keras
+artifacts/*.h5

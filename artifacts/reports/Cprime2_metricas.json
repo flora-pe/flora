@@ -1,0 +1,140 @@
+{
+  "config": "Cprime2",
+  "n_train": 2078,
+  "n_val": 442,
+  "epochs_head": 15,
+  "epochs_ft": 10,
+  "accuracy": 0.8167420814479638,
+  "balanced_accuracy": 0.8099659481903352,
+  "macro": {
+    "precision": 0.8175444576565445,
+    "recall": 0.8099659481903352,
+    "f1": 0.8131944718651037
+  },
+  "weighted": {
+    "precision": 0.8166317334980263,
+    "recall": 0.8167420814479638,
+    "f1": 0.8164195061361761
+  },
+  "por_clase": {
+    "Bacteria": {
+      "precision": 0.9651162790697675,
+      "recall": 0.9880952380952381,
+      "f1": 0.9764705882352941,
+      "support": 84
+    },
+    "Fungi": {
+      "precision": 0.7657657657657657,
+      "recall": 0.7870370370370371,
+      "f1": 0.776255707762557,
+      "support": 108
+    },
+    "Healthy": {
+      "precision": 0.6774193548387096,
+      "recall": 0.7241379310344828,
+      "f1": 0.7,
+      "support": 29
+    },
+    "Nematode": {
+      "precision": 0.8888888888888888,
+      "recall": 0.8,
+      "f1": 0.8421052631578947,
+      "support": 10
+    },
+    "Pest": {
+      "precision": 0.7411764705882353,
+      "recall": 0.7078651685393258,
+      "f1": 0.7241379310344828,
+      "support": 89
+    },
+    "Phytopthora": {
+      "precision": 0.8444444444444444,
+      "recall": 0.8444444444444444,
+      "f1": 0.8444444444444444,
+      "support": 45
+    },
+    "Virus": {
+      "precision": 0.84,
+      "recall": 0.8181818181818182,
+      "f1": 0.8289473684210527,
+      "support": 77
+    }
+  },
+  "confusion_matrix": [
+    [
+      83,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      1,
+      85,
+      4,
+      0,
+      10,
+      4,
+      4
+    ],
+    [
+      0,
+      2,
+      21,
+      0,
+      5,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      0,
+      8,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      14,
+      3,
+      1,
+      63,
+      2,
+      6
+    ],
+    [
+      0,
+      5,
+      0,
+      0,
+      1,
+      38,
+      1
+    ],
+    [
+      1,
+      4,
+      3,
+      0,
+      5,
+      1,
+      63
+    ]
+  ],
+  "clases": [
+    "Bacteria",
+    "Fungi",
+    "Healthy",
+    "Nematode",
+    "Pest",
+    "Phytopthora",
+    "Virus"
+  ],
+  "modelo_path": "data/reportes/fase_c/Cprime2/model.keras",
+  "modelo_evaluado": "data/reportes/fase_c/Cprime2/best_model.keras",
+  "timestamp": "2026-11-21 13:14:40"
+}
