@@ -1,0 +1,5 @@
+# Frontend Flora en Google Cloud Run
+streamlit==1.60.0
+requests>=2.31,<3
+google-auth>=2.30,<3
+Pillow>=10.4,<13

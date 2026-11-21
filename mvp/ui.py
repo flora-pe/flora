@@ -3,8 +3,12 @@ from __future__ import annotations
 
 import os
 import hashlib
+import base64
+from io import BytesIO
+from PIL import Image, ImageOps
 import requests
 import streamlit as st
+from mvp.cloud_auth import api_headers
 
 API_URL = os.getenv("FLORA_API_URL", "http://127.0.0.1:8000").rstrip("/")
 st.set_page_config(page_title="Flora | Inteligencia para el campo", page_icon="🌿", layout="wide", initial_sidebar_state="collapsed")
@@ -74,9 +78,9 @@ st.markdown("""<div class="hero"><div class="eyebrow">FLORA VISION · PROTOTIPO 
 
 with st.sidebar:
     st.markdown("### 🌱 Flora Vision")
-    st.caption("MVP del bootcamp · modo local")
+    st.caption("MVP del bootcamp · " + ("modo local" if API_URL.startswith("http://127.0.0.1") else "Google Cloud"))
     try:
-        r = requests.get(f"{API_URL}/ready", timeout=4)
+        r = requests.get(f"{API_URL}/ready", headers=api_headers(API_URL), timeout=60)
         if r.ok:
             info = r.json()
             st.success(f"Motor conectado · {info['backend']}")
@@ -84,7 +88,9 @@ with st.sidebar:
             st.warning("API disponible, modelo pendiente")
     except requests.RequestException:
         st.error("API no conectada")
-    st.caption(f"Servidor de predicción: `{API_URL}`")
+    except Exception:
+        st.error("No se pudo autenticar con el motor de predicción.")
+    st.caption("Motor de predicción: " + ("local" if API_URL.startswith("http://127.0.0.1") else "Google Cloud"))
     st.markdown("---")
     st.caption("El sistema no reemplaza una evaluación agronómica ni indica tratamientos químicos.")
 
@@ -98,9 +104,22 @@ with left:
         if st.session_state.get("flora_image_sig") != signature:
             st.session_state.pop("flora_result", None)
             st.session_state["flora_image_sig"] = signature
-        st.image(file, caption="Imagen cargada · no se guarda en el servidor", use_container_width=True)
+        with Image.open(BytesIO(file.getvalue())) as original:
+            preview = ImageOps.exif_transpose(original)
+            preview.thumbnail((960, 960))
+            buffer = BytesIO()
+            preview.convert("RGB").save(buffer, format="JPEG", quality=80)
+
+        encoded = base64.b64encode(buffer.getvalue()).decode("ascii")
+        st.markdown(
+            f'<img src="data:image/jpeg;base64,{encoded}" '
+            'style="width:100%;max-height:420px;object-fit:contain;'
+            'border-radius:12px;" alt="Vista previa de la hoja">',
+            unsafe_allow_html=True,
+        )
+        st.caption("Imagen cargada · no se guarda en el servidor")
     else:
-        st.info("📷 Subí una imagen para comenzar. La predicción se ejecuta localmente.")
+        st.info("📷 Subí una imagen para comenzar. Flora analizará la fotografía con su motor de clasificación.")
     button = st.button("Analizar fotografía", type="primary", disabled=file is None, use_container_width=True)
 with right:
     st.subheader("Resultado del análisis")
@@ -108,7 +127,7 @@ with right:
         st.session_state.pop("flora_result", None)
         with st.spinner("Analizando la imagen…"):
             try:
-                res = requests.post(f"{API_URL}/predict", files={"file":(file.name,file.getvalue(),file.type or "image/jpeg")}, timeout=90)
+                res = requests.post(f"{API_URL}/predict", files={"file":(file.name,file.getvalue(),file.type or "image/jpeg")}, headers=api_headers(API_URL), timeout=120)
                 if res.status_code != 200:
                     try: detail = res.json().get("detail",res.text)
                     except ValueError: detail = res.text
@@ -116,7 +135,9 @@ with right:
                 else:
                     st.session_state["flora_result"] = res.json()
             except requests.RequestException as exc:
-                st.error(f"No se pudo conectar a la API local ({type(exc).__name__}).")
+                st.error(f"No se pudo conectar a la API ({type(exc).__name__}).")
+            except Exception:
+                st.error("No se pudo autenticar con el motor de predicción.")
     if "flora_result" in st.session_state:
         result = st.session_state["flora_result"]
         st.markdown(f'<div class="result"><div class="eyebrow" style="color:#5e8a70">Predicción preliminar</div><h2>{result["label"]}</h2><p>Motor: {result["model"]}</p></div>',unsafe_allow_html=True)
