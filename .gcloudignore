@@ -17,3 +17,4 @@ tests/
 *.keras
 .env
 .venv/
+web3d/

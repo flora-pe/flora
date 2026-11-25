@@ -20,11 +20,13 @@ RUN pip install --no-cache-dir -r requirements-cloud-run.txt
 
 COPY mvp/ /app/mvp/
 
-# Modelo v1, descargado desde el Release oficial de Flora.
-# Su integridad se verifica con el SHA-256 registrado.
+# Artefacto oficial de FLORA Diego v2 (release modelo-v2, comprobado por SHA-256).
+# NO versionar el binario Keras en Git ni cambiar el orden de sus siete clases.
+ENV FLORA_MODEL_PATH=/app/models/flora_effnetb0_diego_v2.keras \
+    FLORA_MODEL_VERSION=diego-v2
 RUN mkdir -p /app/models \
-    && python -c "from urllib.request import urlretrieve; urlretrieve('https://github.com/flora-pe/flora/releases/download/modelo-v1/effnetb0_ft_opcion_B.keras', '/app/models/effnetb0_ft_opcion_B.keras')" \
-    && echo "d2d73e2884f0c5731992cd7894fe73a663ab25d2ee9cd52f42956e7875602de4  /app/models/effnetb0_ft_opcion_B.keras" | sha256sum -c -
+    && python -c "from urllib.request import urlretrieve; urlretrieve('https://github.com/flora-pe/flora/releases/download/modelo-v2/flora_effnetb0_diego_v2.keras', '/app/models/flora_effnetb0_diego_v2.keras')" \
+    && echo "325ae7b678c0cd4093dc33f37f288ab6ffeca2051f019a9ffb85a1d155affe86  /app/models/flora_effnetb0_diego_v2.keras" | sha256sum -c -
 
 USER 10001
 
