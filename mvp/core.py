@@ -102,6 +102,8 @@ def load_predictor():
             model = tf.keras.models.load_model(path, compile=False)
         except Exception as exc:
             raise ModelUnavailable(f"No se puede cargar el modelo Keras: {type(exc).__name__}") from exc
+        if tuple(model.input_shape[1:]) != (224, 224, 3):
+            raise ModelUnavailable("El checkpoint no tiene la entrada RGB 224x224x3 esperada.")
         if int(model.output_shape[-1]) != len(CLASSES):
             raise ModelUnavailable("El checkpoint no tiene las siete clases esperadas.")
         return mode, model
@@ -120,9 +122,9 @@ def predict(image: Image.Image) -> dict:
     mode, model = load_predictor()
     if mode == "keras":
         # Consistent with src/06_dataset_tf.py: EfficientNetB0 handles scaling internally.
-        tensor = np.asarray(image.resize((224, 224), Image.Resampling.BILINEAR), dtype=np.float32)
+        tensor = np.asarray(image.resize((224, 224)), dtype=np.float32)
         probs = np.asarray(model.predict(tensor[None, ...], verbose=0)[0], dtype=np.float64)
-        model_name = "EfficientNet-B0 fine-tuned"
+        model_name = os.getenv("FLORA_MODEL_VERSION", "EfficientNet-B0 fine-tuned")
     else:
         probs = np.asarray(model.predict_proba(baseline_features(image)[None, :])[0], dtype=np.float64)
         model_name = "Baseline supervisado (color y textura)"

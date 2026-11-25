@@ -1,6 +1,8 @@
 """Flora local FastAPI service. No external network calls or data persistence."""
 from __future__ import annotations
 
+import os
+
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -32,7 +34,7 @@ def ready():
         mode, _ = load_predictor()
     except ModelUnavailable as exc:
         return JSONResponse(status_code=503, content={"status": "not_ready", "detail": str(exc)})
-    return {"status": "ready", "backend": mode, "classes": CLASSES}
+    return {"status": "ready", "backend": mode, "model_version": os.getenv("FLORA_MODEL_VERSION", "legacy"), "classes": CLASSES}
 
 @app.get("/classes")
 def classes():
