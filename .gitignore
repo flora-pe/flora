@@ -1,9 +1,20 @@
+.DS_Store
+**/.DS_Store
+
+# Datos y modelos
 raw_data/
 data/
 models/
+artifacts/*.keras
+artifacts/*.h5
+
+# Entornos y configuraciones privadas
+venv/
 .venv/
 .env
+.streamlit/secrets.toml
+
+# Archivos temporales Python
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.streamlit/secrets.toml

@@ -1,0 +1,209 @@
+{
+  "model_id": "flora_effnetb0_diego_v2",
+  "version": "2.0.0",
+  "architecture": "EfficientNetB0 + GlobalAvgPool + Dropout(0.3) + Dense(7, softmax)",
+  "num_params": 4058538,
+  "input": {
+    "shape": [
+      null,
+      224,
+      224,
+      3
+    ],
+    "dtype": "float32",
+    "pixel_range": [
+      0.0,
+      255.0
+    ],
+    "channel_order": "RGB",
+    "preprocessing": "Ninguno en inferencia: la capa EfficientNetB0 incluye Rescaling /255 interna. Se debe pasar la imagen RGB como float32 en [0,255]."
+  },
+  "classes": [
+    "Bacteria",
+    "Fungi",
+    "Healthy",
+    "Nematode",
+    "Pest",
+    "Phytopthora",
+    "Virus"
+  ],
+  "class_indices": {
+    "Bacteria": 0,
+    "Fungi": 1,
+    "Healthy": 2,
+    "Nematode": 3,
+    "Pest": 4,
+    "Phytopthora": 5,
+    "Virus": 6
+  },
+  "training": {
+    "augmentation": "RandomRotation(\u00b128.6\u00b0)",
+    "class_weight": "sqrt(balanced)",
+    "initialization": "EfficientNetB0 ImageNet",
+    "fine_tuning_blocks": 2
+  },
+  "evaluation": {
+    "val": {
+      "n": 442,
+      "accuracy": 0.8167,
+      "balanced_accuracy": 0.81,
+      "macro": {
+        "precision": 0.8175,
+        "recall": 0.81,
+        "f1": 0.8132
+      }
+    },
+    "test": {
+      "n": 453,
+      "accuracy": 0.7571743929359823,
+      "balanced_accuracy": 0.7883424764564471,
+      "macro": {
+        "precision": 0.7589850485673006,
+        "recall": 0.7883424764564471,
+        "f1": 0.7664853016671994
+      },
+      "weighted": {
+        "precision": 0.7665669781099007,
+        "recall": 0.7571743929359823,
+        "f1": 0.7564230345768151
+      },
+      "por_clase": {
+        "Bacteria": {
+          "precision": 0.875,
+          "recall": 0.9882352941176471,
+          "f1": 0.9281767955801105,
+          "support": 85
+        },
+        "Fungi": {
+          "precision": 0.7340425531914894,
+          "recall": 0.6272727272727273,
+          "f1": 0.6764705882352942,
+          "support": 110
+        },
+        "Healthy": {
+          "precision": 0.5777777777777777,
+          "recall": 0.8387096774193549,
+          "f1": 0.6842105263157895,
+          "support": 31
+        },
+        "Nematode": {
+          "precision": 0.7692307692307693,
+          "recall": 0.9090909090909091,
+          "f1": 0.8333333333333334,
+          "support": 11
+        },
+        "Pest": {
+          "precision": 0.6262626262626263,
+          "recall": 0.6888888888888889,
+          "f1": 0.656084656084656,
+          "support": 90
+        },
+        "Phytopthora": {
+          "precision": 0.8536585365853658,
+          "recall": 0.7446808510638298,
+          "f1": 0.7954545454545454,
+          "support": 47
+        },
+        "Virus": {
+          "precision": 0.8769230769230769,
+          "recall": 0.7215189873417721,
+          "f1": 0.7916666666666666,
+          "support": 79
+        }
+      },
+      "confusion_matrix": [
+        [
+          84,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          69,
+          3,
+          2,
+          23,
+          5,
+          4
+        ],
+        [
+          1,
+          0,
+          26,
+          0,
+          3,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          10,
+          1,
+          0,
+          0
+        ],
+        [
+          2,
+          16,
+          8,
+          0,
+          62,
+          0,
+          2
+        ],
+        [
+          1,
+          6,
+          0,
+          0,
+          4,
+          35,
+          1
+        ],
+        [
+          4,
+          2,
+          8,
+          1,
+          6,
+          1,
+          57
+        ]
+      ]
+    }
+  },
+  "dataset": {
+    "total_images": 2973,
+    "splits": {
+      "train": 2078,
+      "val": 442,
+      "test": 453
+    },
+    "leakage_verified": "MD5 + pHash, 0 exactos, 3 casi intra-clase (0.45% val)"
+  },
+  "environment": {
+    "python": "3.12.9",
+    "tensorflow": "2.21.0",
+    "keras": "3.15.1",
+    "sklearn": "1.5.2",
+    "numpy": "2.5.5",
+    "pillow": "12.3.0"
+  },
+  "artifact": {
+    "file": "flora_effnetb0_diego_v2.keras",
+    "sha256": "325ae7b678c0cd4093dc33f37f288ab6ffeca2051f019a9ffb85a1d155affe86",
+    "size_mb": 31.92,
+    "timestamp": "2026-11-21 14:53:24"
+  },
+  "known_limitations": [
+    "Fungi\u2194Pest bidireccional: 60% de los errores del modelo.",
+    "Nematode test n=11: m\u00e9tricas no concluyentes.",
+    "Healthy precision 0.68: falsos positivos de hoja sana en hojas enfermas tempranas."
+  ]
+}
